@@ -1,24 +1,32 @@
 "use client";
 
 import { AlertCircle } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 
 interface ErrorMessageProps {
+  title?: string;
   message: string;
-  onRetry?: () => void;
+  retry?: () => void;
 }
 
-export function ErrorMessage({ message, onRetry }: ErrorMessageProps) {
+export function ErrorMessage({
+  title = "Error",
+  message,
+  retry,
+}: ErrorMessageProps) {
   return (
-    <div className="flex flex-col items-center justify-center p-6 text-center">
-      <AlertCircle className="h-12 w-12 text-destructive mb-2" />
-      <h3 className="text-lg font-semibold mb-2">Something went wrong</h3>
-      <p className="text-muted-foreground mb-4">{message}</p>
-      {onRetry && (
-        <Button onClick={onRetry} variant="outline">
-          Try again
-        </Button>
-      )}
-    </div>
+    <Alert variant="destructive">
+      <AlertCircle className="h-4 w-4" />
+      <AlertTitle>{title}</AlertTitle>
+      <AlertDescription className="flex flex-col gap-2">
+        <p>{message}</p>
+        {retry && (
+          <Button variant="outline" size="sm" onClick={retry} className="w-fit">
+            Try Again
+          </Button>
+        )}
+      </AlertDescription>
+    </Alert>
   );
 }
