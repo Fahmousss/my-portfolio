@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -35,6 +36,12 @@ const cardVariants = {
     },
   }),
 };
+
+interface ProgressBarProps {
+  level: number;
+  delay: number;
+  isInView: boolean;
+}
 
 interface SkillsData {
   technicalSkills: TechnicalSkill[];
@@ -151,7 +158,11 @@ export function SkillsSection() {
     </div>
   );
 
-  function ProgressBar({ level }: { level: number }) {
+  const ProgressBar: React.FC<ProgressBarProps> = ({
+    level,
+    delay,
+    isInView,
+  }) => {
     const [progress, setProgress] = useState(0);
 
     useEffect(() => {
@@ -160,7 +171,7 @@ export function SkillsSection() {
     }, [level]);
 
     return <Progress value={progress} className="h-2" />;
-  }
+  };
 
   return (
     <DataLoader
